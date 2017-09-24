@@ -2,15 +2,7 @@
 
 ### About
 
-<!---
-
-A simple game of Asteroids written in javascript. [__Play the game!__](https://redin.gitlab.io/AsteroidsJS/)
-
-- Use CTRL to fire
-- Refresh page to start over.
-- Have fun!
-
--->
+A simple maze generator - creating a 20x20 maze using a [recursive backtracker maze generation algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm).
 
 ### p5.js
 

@@ -22,7 +22,7 @@ function setupDraw()
     textSize(30);
     //strokeWeight(4)
     fill(63, 79, 232);
-    stroke(0);
+    stroke(220);
 }
 
 function setupCells()
@@ -41,7 +41,7 @@ function setupCells()
 // main loop
 function draw() 
 {
-    background(255); 
+    background(0); 
     
     if(current.haveUnvisitedNeighbours())
     {

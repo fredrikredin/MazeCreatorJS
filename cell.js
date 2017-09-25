@@ -37,13 +37,13 @@ function Cell(rowIndex, colIndex, cellSize)
         if(this.colIndex > 0 && !cells[this.rowIndex][this.colIndex - 1].isVisited)
             this.unvisitedNeighbours.push(cells[this.rowIndex][this.colIndex - 1]);
 
-        if(this.colIndex <= rowColCount - 2 && !cells[this.rowIndex][this.colIndex + 1].isVisited)
+        if(this.colIndex <= colCount - 2 && !cells[this.rowIndex][this.colIndex + 1].isVisited)
             this.unvisitedNeighbours.push(cells[this.rowIndex][this.colIndex + 1]);
 
         if(this.rowIndex > 0 && !cells[this.rowIndex - 1][this.colIndex].isVisited)
             this.unvisitedNeighbours.push(cells[this.rowIndex - 1][this.colIndex]);
 
-        if(this.rowIndex <= rowColCount - 2 && !cells[this.rowIndex + 1][this.colIndex].isVisited)
+        if(this.rowIndex <= rowCount - 2 && !cells[this.rowIndex + 1][this.colIndex].isVisited)
             this.unvisitedNeighbours.push(cells[this.rowIndex + 1][this.colIndex]);
     }
 

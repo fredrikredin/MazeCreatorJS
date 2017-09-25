@@ -1,4 +1,5 @@
-var rowColCount = 20;
+var colCount = 10;  // fixed
+var rowCount = 10;  // set based on canvas height
 var cellSize; 
 var cells;
 var current;
@@ -20,28 +21,28 @@ function setupDraw()
     frameRate(60);
     rectMode(CENTER);
     textSize(30);
-    //strokeWeight(4)
     fill(63, 79, 232);
     stroke(220);
 }
 
 function setupCells()
 {
-    cellSize = (width / rowColCount) - 1;
+    cellSize = (width / colCount) - 1;
+    rowCount = Math.floor(windowHeight - 10 / cellSize);
 
-    cells = new Array(rowColCount);
-    for(var i = 0; i < rowColCount; i++)
-        cells[i] = new Array(rowColCount);
+    cells = new Array(rowCount);
+    for(var i = 0; i < rowCount; i++)
+        cells[i] = new Array(colCount);
 
-    for(var i = 0; i < rowColCount; i++)
-        for(var j = 0; j < rowColCount; j++)
+    for(var i = 0; i < rowCount; i++)
+        for(var j = 0; j < colCount; j++)
             cells[i][j] = new Cell(i,j, cellSize);
 }
 
 // main loop
 function draw() 
 {
-    background(0); 
+    background(100); 
     
     if(current.haveUnvisitedNeighbours())
     {
@@ -61,9 +62,9 @@ function draw()
     // draw cell walls
     strokeWeight(6);
     
-    for(var i = 0; i < rowColCount; i++)
-    for(var j = 0; j < rowColCount; j++)
-    cells[i][j].drawWalls();
+    for(var i = 0; i < rowCount; i++)
+        for(var j = 0; j < colCount; j++)
+            cells[i][j].drawWalls();
     
     //if (complete)
     //    fill(0, 168, 107);
@@ -76,6 +77,7 @@ function draw()
     {
         fill(0, 168, 107);
         rect(current.x, current.y, cellSize-5, cellSize-5)
-        rect(cells[rowColCount-1][rowColCount-1].x, cells[rowColCount-1][rowColCount-1].y, cellSize-5, cellSize-5)
+        var last = cells[rowCount-1][colCount-1];
+        rect(last.x, last.y, cellSize-5, cellSize-5);
     }
 }

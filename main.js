@@ -26,7 +26,7 @@ function setupDraw()
 
 function setupCells()
 {
-    colCount = 30;
+    colCount = 20;
     cellSize = ((width - 10) / colCount);
     rowCount = Math.floor(height / cellSize);
 

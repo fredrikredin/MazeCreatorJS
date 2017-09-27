@@ -26,7 +26,7 @@ function setupDraw()
 
 function setupCells()
 {
-    setColCount();
+    colCount = 30;
     cellSize = ((width - 10) / colCount);
     rowCount = Math.floor(height / cellSize);
 
@@ -39,6 +39,7 @@ function setupCells()
             cells[i][j] = new Cell(i,j, cellSize);
 }
 
+/*
 function setColCount()
 {
     colCount = parseColCountFromURLParameter();
@@ -71,6 +72,7 @@ function parseColCountFromURLParameter()
     else
         return defaultColCount;
 }
+*/
 
 // main loop
 function draw() 

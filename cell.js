@@ -11,6 +11,9 @@ function Cell(rowIndex, colIndex, cellSize)
 
     this.drawWalls = function()
     {
+        if(!this.isVisited)
+            return;
+
         if(this.walls.top === true)
             line(this.x - this.hs, this.y - this.hs, this.x + this.hs, this.y - this.hs);   
 

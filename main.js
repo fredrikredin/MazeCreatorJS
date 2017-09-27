@@ -1,5 +1,5 @@
-var colCount = 10;  // fixed
-var rowCount = 10;  // set based on canvas height
+var colCount;
+var rowCount;
 var cellSize; 
 var cells;
 var current;
@@ -8,8 +8,7 @@ var complete = false;
 
 function setup() 
 {
-    var canvasSize = 0.99 * Math.min(windowWidth, windowHeight);
-    createCanvas(canvasSize, canvasSize);
+    createCanvas(0.99 * windowWidth, 0.99 * windowHeight);
     setupDraw();
     setupCells();
     current = cells[0][0];
@@ -27,8 +26,9 @@ function setupDraw()
 
 function setupCells()
 {
-    cellSize = (width / colCount) - 1;
-    rowCount = Math.floor(windowHeight - 10 / cellSize);
+    getColCountFromURLParameters();
+    cellSize = ((width - 10) / colCount);
+    rowCount = Math.floor(height / cellSize);
 
     cells = new Array(rowCount);
     for(var i = 0; i < rowCount; i++)
@@ -39,10 +39,38 @@ function setupCells()
             cells[i][j] = new Cell(i,j, cellSize);
 }
 
+function getColCountFromURLParameters()
+{
+    var value = parseURLParameterByName("colCount");
+
+    if(!value && value !== undefined && value != null)
+    {
+        colCount = parseInt(value);
+
+        if(colCount < 1)
+            colCount = 1;
+        
+        if(colCount > 50)
+            colCount = 50;
+    }
+    else
+        colCount = 20;
+}
+
+function parseURLParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 // main loop
 function draw() 
 {
-    background(100); 
+    background(0); 
     
     if(current.haveUnvisitedNeighbours())
     {

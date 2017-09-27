@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "file:///C:/git/gitlab/web/mazeCreatorJS/index.html",
+            "url": "file:///C:/git/web/mazeCreatorJS/index.html",
             "webRoot": "${workspaceRoot}"
         }
     ]

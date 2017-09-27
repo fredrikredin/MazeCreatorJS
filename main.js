@@ -1,4 +1,5 @@
-var rowColCount = 20;
+var colCount;
+var rowCount;
 var cellSize; 
 var cells;
 var current;
@@ -7,8 +8,7 @@ var complete = false;
 
 function setup() 
 {
-    var canvasSize = 0.99 * Math.min(windowWidth, windowHeight);
-    createCanvas(canvasSize, canvasSize);
+    createCanvas(0.99 * windowWidth, 0.99 * windowHeight);
     setupDraw();
     setupCells();
     current = cells[0][0];
@@ -20,22 +20,51 @@ function setupDraw()
     frameRate(60);
     rectMode(CENTER);
     textSize(30);
-    //strokeWeight(4)
     fill(63, 79, 232);
     stroke(220);
 }
 
 function setupCells()
 {
-    cellSize = (width / rowColCount) - 1;
+    getColCountFromURLParameters();
+    cellSize = ((width - 10) / colCount);
+    rowCount = Math.floor(height / cellSize);
 
-    cells = new Array(rowColCount);
-    for(var i = 0; i < rowColCount; i++)
-        cells[i] = new Array(rowColCount);
+    cells = new Array(rowCount);
+    for(var i = 0; i < rowCount; i++)
+        cells[i] = new Array(colCount);
 
-    for(var i = 0; i < rowColCount; i++)
-        for(var j = 0; j < rowColCount; j++)
+    for(var i = 0; i < rowCount; i++)
+        for(var j = 0; j < colCount; j++)
             cells[i][j] = new Cell(i,j, cellSize);
+}
+
+function getColCountFromURLParameters()
+{
+    var value = parseURLParameterByName("colCount");
+
+    if(!value && value !== undefined && value != null)
+    {
+        colCount = parseInt(value);
+
+        if(colCount < 1)
+            colCount = 1;
+        
+        if(colCount > 50)
+            colCount = 50;
+    }
+    else
+        colCount = 20;
+}
+
+function parseURLParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 // main loop
@@ -61,9 +90,9 @@ function draw()
     // draw cell walls
     strokeWeight(6);
     
-    for(var i = 0; i < rowColCount; i++)
-    for(var j = 0; j < rowColCount; j++)
-    cells[i][j].drawWalls();
+    for(var i = 0; i < rowCount; i++)
+        for(var j = 0; j < colCount; j++)
+            cells[i][j].drawWalls();
     
     //if (complete)
     //    fill(0, 168, 107);
@@ -76,6 +105,7 @@ function draw()
     {
         fill(0, 168, 107);
         rect(current.x, current.y, cellSize-5, cellSize-5)
-        rect(cells[rowColCount-1][rowColCount-1].x, cells[rowColCount-1][rowColCount-1].y, cellSize-5, cellSize-5)
+        var last = cells[rowCount-1][colCount-1];
+        rect(last.x, last.y, cellSize-5, cellSize-5);
     }
 }

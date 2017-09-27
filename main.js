@@ -26,7 +26,7 @@ function setupDraw()
 
 function setupCells()
 {
-    getColCountFromURLParameters();
+    setColCount();
     cellSize = ((width - 10) / colCount);
     rowCount = Math.floor(height / cellSize);
 
@@ -39,32 +39,37 @@ function setupCells()
             cells[i][j] = new Cell(i,j, cellSize);
 }
 
-function getColCountFromURLParameters()
+function setColCount()
 {
-    var value = parseURLParameterByName("colCount");
-
-    if(!value && value !== undefined && value != null)
-    {
-        colCount = parseInt(value);
-
-        if(colCount < 1)
-            colCount = 1;
-        
-        if(colCount > 50)
-            colCount = 50;
-    }
-    else
-        colCount = 20;
+    colCount = parseColCountFromURLParameter();
+    
+    if(colCount < 1)
+        colCount = 1;
+    
+    if(colCount > 50)
+        colCount = 50;
 }
 
-function parseURLParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+function parseColCountFromURLParameter() 
+{
+    var defaultColCount = 20;
+
+    if(window.location.search === undefined || window.location.search === "")
+        return defaultColCount;
+
+    var index = window.location.search.indexOf("?colCount=");
+
+    if(index > 0)
+    {
+        var value = parseInt(window.location.search.substr("?colCount=".length));
+
+        if(isNaN(value))
+            return defaultColCount;
+        else
+            return value;
+    }
+    else
+        return defaultColCount;
 }
 
 // main loop

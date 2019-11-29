@@ -2,7 +2,11 @@
 
 ### About
 
-A simple maze generator - creating a 20x20 maze using a [recursive backtracker maze generation algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm).
+A simple maze generator (creating a 20x20 maze) - using a [recursive backtracker maze generation algorithm (wikipedia)](https://en.wikipedia.org/wiki/Maze_generation_algorithm).
+
+### Demo
+
+https://fredrikredin.github.io/MazeCreatorJS/
 
 ### p5.js
 
